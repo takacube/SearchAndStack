@@ -1,8 +1,61 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  //runApp(const MyApp());
+  runApp(MaterialApp(
+    title: 'Navigation',
+    theme: ThemeData(
+      brightness: Brightness.dark,
+      primaryColor: Colors.lightBlue[800],
+      fontFamily: 'Georgia',
+      textTheme: const TextTheme(
+        displayLarge: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+        titleLarge: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+        bodyMedium: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+      ),
+    ),
+    initialRoute: '/',
+    routes: {
+      '/second': (context) => const MyHomePage(title: "title", header: "header"),
+      '/': (context) => MySecondPage(),
+      '/third': (context) => MyThirdPage(),
+    },
+  ));
 }
+
+class MySecondPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Scaffold(
+
+    appBar: AppBar(
+      title: const Text('shimakura takanao')
+    ),
+    body: Center(
+      child: FloatingActionButton(
+        child: const Icon(Icons.next_week),
+        onPressed: () {
+          Navigator.pushNamed(context, "/third");
+        }
+      )
+    )
+  );
+}
+
+class MyThirdPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Scaffold(
+
+      appBar: AppBar(
+          title: const Text('pic')
+      ),
+      body: Center(
+          child: Image.asset('images/銀行口座_写真.jpg'),
+      )
+  );
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -16,6 +69,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       home: const MyHomePage(title: 'Flutter Demo Title', header: "Header"),
+        /*
+        home: Scaffold(
+        body: Center(
+          child: Text(
+            'Flutter Demo Home Page',
+            style: Theme.of(context).textTheme.displaySmall
+          )
+        )
+       )
+        */
     );
   }
   /*
@@ -65,6 +128,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _decrementCounter() {
+    setState(() {
+      _counter--;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -107,14 +176,67 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            const Text(
+                "Don't push me!"
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headline4
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Image.asset('images/takakano.png')
+              ],
+            )
           ],
         ),
       ),
+      floatingActionButton:
+      Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: _incrementCounter,
+              child: const Icon(Icons.add),
+            ),
+            SizedBox(height: 8,),
+            FloatingActionButton(
+              onPressed: _decrementCounter,
+              child: const Icon(Icons.abc_sharp),
+            ),
+          ],
+      //Row(
+        //children: [
+          /*
+          FloatingActionButton(
+            onPressed: _incrementCounter,
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          ),
+          FloatingActionButton(
+            onPressed: _decrementCounter,
+            tooltip: 'Increment',
+            child: const Icon(Icons.exposure_minus_1),
+          ),
+           */
+
+        //]
+      )
+      /*
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
+       */
+        /*// This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButton: FloatingActionButton1(
+        onPressed: _decrementCounter,
+        tooltip: 'Decrement',
+        child: const Icon(Icons.add),
+      )
+         */
     );
   }
 }
